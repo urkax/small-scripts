@@ -1,5 +1,5 @@
 import sys
- 
+import re
 from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit
 from PyQt5.QtCore import pyqtSlot, QMetaObject
 
@@ -33,15 +33,22 @@ class Example(QWidget):
     @pyqtSlot()
     def on_edit_textChanged(self):
         text = self.text_edit.toPlainText()
-        text_list = []
-        for i in text:
-            if i=='\n':
-                text_list.append(' ')
-            else:
-                text_list.append(i)
+        # text_list = []
+        # for i in text:
+        #     if i=='\n':
+        #         text_list.append(' ')
+        #     else:
+        #         text_list.append(i)
+        # text.replace('\n','')
+        text=re.sub(r'[\n]*', '', text, count=0, flags=0)
+        text=re.sub(r'[$](.*?)[$]', '', text, count=0, flags=0) #公式 $xxx$
+        text=re.sub(r'~\\.*?{.*?}', '', text, count=0, flags=0) # ~\xxx{xx}
+        text=re.sub(r'\\.*?{.*?}', '', text, count=0, flags=0) # \xxx{xx}
+        text=re.sub(r'\\.*?\[.*?\]', '', text, count=0, flags=0) # \xxx[xx]
 
         # print(text_list)
-        self.output_edit.setPlainText(''.join(text_list))
+        # self.output_edit.setPlainText(''.join(text_list))
+        self.output_edit.setPlainText(text)
         
 if __name__ == '__main__':
     #创建应用程序和对象
