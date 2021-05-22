@@ -40,12 +40,12 @@ class Example(QWidget):
         #     else:
         #         text_list.append(i)
         # text.replace('\n','')
-        text=re.sub(r'[\n]*', '', text, count=0, flags=0)
-        text=re.sub(r'[$](.*?)[$]', 'A', text, count=0, flags=0) #公式 $xxx$
-        text = re.sub(r'\\emph{.*?}', lambda x:x[0][6:-1], text, count=0, flags=0)
-        text=re.sub(r'~\\.*?{.*?}', '', text, count=0, flags=0) # ~\xxx{xx}
-        text=re.sub(r'\\.*?{.*?}', '', text, count=0, flags=0) # \xxx{xx}
-        # text=re.sub(r'\\.*?\[.*?\]', '', text, count=0, flags=0) # \xxx[xx]
+        text = re.sub(r'[\n]*', '', text, count=0, flags=0) #删除换行符号
+        text = re.sub(r'[$](.*?)[$]', 'A', text, count=0, flags=0) #将公式 $xxx$换成 A
+        text = re.sub(r'\\emph{.*?}', lambda x:x[0][6:-1], text, count=0, flags=0) # 将\emph{x}换成x
+        text = re.sub(r'~\\.*?{.*?}', '', text, count=0, flags=0) # 删除~\xxx{xx}
+        text = re.sub(r'\\.*?{.*?}', '', text, count=0, flags=0) # 删除\xxx{xx}
+        # text=re.sub(r'\\.*?\[.*?\]', '', text, count=0, flags=0) # 删除\xxx[xx]
 
         # print(text_list)
         # self.output_edit.setPlainText(''.join(text_list))
